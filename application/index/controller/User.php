@@ -8,11 +8,17 @@ class User
     // 新增用户数据
     public function add()
     {
-        $user           = new UserModel;
-        $user->nickname = '流年';
-        $user->email    = 'thinkphp@qq.com';
-        $user->birthday = '1977-03-05';
-        if ($user->save()) {
+        // $user           = new UserModel;
+        // $user->nickname = '流年';
+        // $user->email    = 'thinkphp@qq.com';
+        // $user->birthday = '1977-03-05';
+        // if ($user->save()) {
+        //     return '用户[ ' . $user->nickname . ':' . $user->id . ' ]新增成功';
+        // } else {
+        //     return $user->getError();
+        // }
+        $user = new UserModel;
+        if ($user->allowField(true)->validate(true)->save(input('post.'))) {
             return '用户[ ' . $user->nickname . ':' . $user->id . ' ]新增成功';
         } else {
             return $user->getError();
@@ -63,5 +69,10 @@ class User
             echo date('Y/m/d', $user->birthday) . '<br/>';
             echo '----------------------------------<br/>';
         }
+    }
+    // 创建用户数据页面
+    public function create()
+    {
+        return view('user/create');
     }
 }
